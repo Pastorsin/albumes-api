@@ -25,4 +25,5 @@ urlpatterns = [
     path('openapi/', schema_view, name='openapi-schema'),
     path("admin/", admin.site.urls),
     path("interviews/", include('interview.urls')),
+    path("albums/", include('album.urls')),
 ]

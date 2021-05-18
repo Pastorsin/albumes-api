@@ -48,7 +48,8 @@ THIRD_APPS = [
 ]
 
 MY_APPS = [
-    'interview'
+    'interview',
+    'album',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + MY_APPS
