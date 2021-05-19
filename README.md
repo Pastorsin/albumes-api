@@ -13,11 +13,6 @@ API for managing natural disasters albums
 ### API Documentation
 [Docs homepage](https://albumes-api.herokuapp.com/)
 
-### Other sites
-Follow Cat Facts on [Twitter](https://twitter.com/datos_de_gatos)
-
-Talk to the DialogFlow bot [here](https://bot.dialogflow.com/d7b47381-1453-4b31-a20c-9825de80cf88)
-
 ### Setup
 If you want to set up your own version of Álbumes API, follow the instructions below:
 1. Clone the repository
