@@ -2,15 +2,19 @@ from zipfile import ZipFile
 
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor
+import environ
 import io
 from pathlib import Path
 import pyqrcode
 import requests
 
 
-DATA_DIR = Path("/tmp")
+env = environ.Env()
 
+
+DATA_DIR = Path("/tmp")
 QR_SCALE = 4
+MAX_THREADS = env.int('MAX_THREADS', default=1)
 
 
 def generate_zip(album):
@@ -38,8 +42,6 @@ def get_image_content(image):
 
 def generate_accessible_interviews(album):
     interviews = album.interviews.all()
-
-    MAX_THREADS = len(interviews)
 
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         images = list(executor.map(

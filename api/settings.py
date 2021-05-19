@@ -143,3 +143,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://pypi.org/project/django-heroku/
 
 django_heroku.settings(locals())
+DATABASES['default']['CONN_MAX_AGE'] = 0
