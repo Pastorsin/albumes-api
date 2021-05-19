@@ -1,10 +1,11 @@
 from album.models import Album
+from interview.serializers import InterviewSerializer
 from rest_framework import serializers
 
 
 class AlbumSerializer(serializers.ModelSerializer):
+    interviews = InterviewSerializer(many=True)
 
     class Meta:
         model = Album
-        fields = ['name', 'qr_position', 'interviews']
-        depth = 1
+        fields = ['id', 'name', 'qr_position', 'interviews']

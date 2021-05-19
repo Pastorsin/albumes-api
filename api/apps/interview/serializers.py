@@ -15,4 +15,4 @@ class InterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ['name', 'youtube_video']
+        fields = ['id', 'name', 'youtube_video']
