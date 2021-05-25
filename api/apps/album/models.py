@@ -4,7 +4,7 @@ from interview.models import Interview
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 
-class Album(SoftDeletableModel, TimeStampedModel):
+class Album(TimeStampedModel, SoftDeletableModel):
 
     class Corner(models.TextChoices):
         TOP_LEFT = 'TOP_LEFT', _('Top left')

@@ -8,7 +8,9 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = ['id', 'name', 'qr_position', 'interviews']
+        fields = [
+            'id', 'name', 'qr_position', 'interviews', 'created', 'modified'
+        ]
 
 
 class ExportAlbumSerializer(serializers.Serializer):
