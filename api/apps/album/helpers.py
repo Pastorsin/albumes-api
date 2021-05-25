@@ -1,6 +1,8 @@
+from functools import partial
 from zipfile import ZipFile
 
 from PIL import Image
+from album.models import Album
 from concurrent.futures import ThreadPoolExecutor
 import environ
 import io
@@ -42,22 +44,39 @@ def get_image_content(image):
 
 def generate_accessible_interviews(album):
     interviews = album.interviews.all()
+    qr_position = album.qr_position
 
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         images = list(executor.map(
-            generate_accessible_interview, interviews
+            partial(generate_accessible_interview, qr_position),
+            interviews
         ))
 
     return images
 
 
-def generate_accessible_interview(interview):
+def generate_accessible_interview(qr_position, interview):
     thubmnail_image = get_thumbnail_image(interview)
     qr_image = generate_qr_code_image(interview)
 
-    thubmnail_image.paste(qr_image, box=(0, 0))
+    corner_position = calculate_corner_position(
+        qr_position,
+        main_image=thubmnail_image,
+        nested_image=qr_image
+    )
+
+    thubmnail_image.paste(qr_image, box=corner_position)
 
     return thubmnail_image
+
+
+def get_thumbnail_image(interview):
+    thumbnail = interview.youtube_video.thumbnail
+
+    response = requests.get(thumbnail)
+    image_data = response.content
+
+    return Image.open(io.BytesIO(image_data))
 
 
 def generate_qr_code_image(interview):
@@ -71,10 +90,16 @@ def generate_qr_code_image(interview):
     return Image.open(qr_filename)
 
 
-def get_thumbnail_image(interview):
-    thumbnail = interview.youtube_video.thumbnail
+def calculate_corner_position(album_position, main_image, nested_image):
+    top, left = 0, 0
+    bottom = main_image.height - nested_image.height
+    right = main_image.width - nested_image.width
 
-    response = requests.get(thumbnail)
-    image_data = response.content
+    POSITIONS = {
+        Album.Corner.TOP_LEFT: (left, top),
+        Album.Corner.TOP_RIGHT: (right, top),
+        Album.Corner.BOTTOM_LEFT: (left, bottom),
+        Album.Corner.BOTTOM_RIGHT: (right, bottom),
+    }
 
-    return Image.open(io.BytesIO(image_data))
+    return POSITIONS[album_position]
