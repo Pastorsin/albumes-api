@@ -45,6 +45,7 @@ DJANGO_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
+    'corsheaders',
 ]
 
 MY_APPS = [
@@ -62,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
