@@ -18,5 +18,8 @@ class Album(TimeStampedModel, SoftDeletableModel):
 
     interviews = models.ManyToManyField(Interview)
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self):
         return self.name
