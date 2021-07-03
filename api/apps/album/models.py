@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from interview.models import Interview
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 from sortedm2m.fields import SortedManyToManyField
+from user.models import User
 
 
 class Album(TimeStampedModel, SoftDeletableModel):
@@ -19,6 +20,11 @@ class Album(TimeStampedModel, SoftDeletableModel):
     qr_position = models.CharField(max_length=255, choices=Corner.choices)
 
     interviews = SortedManyToManyField(Interview)
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
 
     class Meta:
         ordering = ['-created']

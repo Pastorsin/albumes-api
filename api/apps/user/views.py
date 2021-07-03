@@ -1,12 +1,14 @@
 from rest_framework import mixins
 from rest_framework import viewsets
-from user.models import Settings
-from user.serializers import SettingsSerializer
+from user.models import User
+from user.serializers import UserSerializer
 
 
-class SettingsViewSet(mixins.RetrieveModelMixin,
-                      mixins.UpdateModelMixin,
-                      viewsets.GenericViewSet):
+class UserViewSet(mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
+                  viewsets.GenericViewSet):
 
-    queryset = Settings.objects.all()
-    serializer_class = SettingsSerializer
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)

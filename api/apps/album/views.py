@@ -2,6 +2,7 @@ from album.helpers import generate_zip
 from album.models import Album
 from album.renderers import ZipRenderer
 from album.serializers import AlbumSerializer, ExportAlbumSerializer
+from core.filters import IsOwnerFilterBackend
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -10,6 +11,8 @@ from rest_framework.response import Response
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+
+    filter_backends = [IsOwnerFilterBackend]
 
     @action(detail=True,
             methods=['get'],

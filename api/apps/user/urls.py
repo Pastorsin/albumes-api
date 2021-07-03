@@ -1,7 +1,7 @@
-from user.views import SettingsViewSet
+from user.views import UserViewSet
 from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register('settings', SettingsViewSet, basename='settings')
+router.register('', UserViewSet, basename='users')
 urlpatterns = router.urls

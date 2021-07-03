@@ -13,11 +13,15 @@ class AlbumSerializer(serializers.ModelSerializer):
         queryset=Interview.objects.all()
     )
 
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = Album
         fields = [
             'id', 'name', 'qr_position', 'interviews', 'interview_ids',
-            'created', 'modified'
+            'created', 'modified', 'user'
         ]
 
 
