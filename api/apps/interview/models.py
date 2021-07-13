@@ -6,8 +6,6 @@ class YoutubeVideo(models.Model):
 
     code = models.CharField(max_length=255)
 
-    thumbnail = models.URLField()
-
     @property
     def url(self):
         PATH = "/watch"
@@ -17,6 +15,10 @@ class YoutubeVideo(models.Model):
         query = urlencode(dict(v=self.code))
 
         return urlunsplit((SCHEME, NETLOC, PATH, query, ""))
+
+    @property
+    def thumbnail(self):
+        return f"https://i.ytimg.com/vim/{self.code}/maxresdefault.jpg"
 
 
 class Interview(models.Model):
