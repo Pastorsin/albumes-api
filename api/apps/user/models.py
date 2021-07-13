@@ -15,33 +15,12 @@ class User(BaseUser):
 class Settings(models.Model):
     class ColorMode(models.TextChoices):
         ORIGINAL = 'ORIGINAL', _('Original')
-        COLOR_BLIND = 'COLOR_BLIND', _('Color blind')
-
-    class FontSize(models.TextChoices):
-        SMALL = 'SMALL', _('Small')
-        MEDIUM = 'MEDIUM', _('Medium')
-        LARGE = 'LARGE', _('Large')
-
-    class ElementsPerPage(models.IntegerChoices):
-        FEW = 4
-        INTERMEDIATE = 8
-        MANY = 16
+        HIGH_CONTRAST = 'HIGH_CONTRAST', _('High contrast')
 
     color_mode = models.CharField(
         max_length=255,
         choices=ColorMode.choices,
         default=ColorMode.ORIGINAL,
-    )
-
-    font_size = models.CharField(
-        max_length=255,
-        choices=FontSize.choices,
-        default=FontSize.MEDIUM,
-    )
-
-    elements_per_page = models.IntegerField(
-        choices=ElementsPerPage.choices,
-        default=ElementsPerPage.FEW
     )
 
     user = models.OneToOneField(
