@@ -18,7 +18,7 @@ class YoutubeVideo(models.Model):
 
     @property
     def thumbnail(self):
-        return f"https://i.ytimg.com/vim/{self.code}/maxresdefault.jpg"
+        return f"https://i.ytimg.com/vi/{self.code}/maxresdefault.jpg"
 
 
 class Interview(models.Model):
