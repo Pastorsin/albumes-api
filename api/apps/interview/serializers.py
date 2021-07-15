@@ -7,7 +7,7 @@ class YoutubeVideoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = YoutubeVideo
-        fields = ['code', 'thumbnail', 'url']
+        fields = ['id', 'code', 'thumbnail', 'url']
 
 
 class InterviewSerializer(serializers.ModelSerializer):
@@ -17,22 +17,11 @@ class InterviewSerializer(serializers.ModelSerializer):
         model = Interview
         fields = ['id', 'name', 'youtube_video']
 
-    def validate(self, data):
-        validated_data = super().validate(data)
-
-        interview_name = validated_data["name"]
-        video_code = validated_data["youtube_video"]["code"]
-
-        if Interview.exists(interview_name, video_code):
-            raise serializers.ValidationError("Interview already exists.")
-
-        return validated_data
-
     def create(self, validated_data):
-        video, _ = YoutubeVideo.objects.get_or_create(
-            **validated_data["youtube_video"]
-        )
+        video_data = validated_data["youtube_video"]
+        video = YoutubeVideo.objects.create(**video_data)
 
-        validated_data["youtube_video"] = video
+        validated_data.update({"youtube_video": video})
+        interview = Interview.objects.create(**validated_data)
 
-        return super().create(validated_data)
+        return interview
