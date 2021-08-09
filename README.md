@@ -1,8 +1,15 @@
 # Álbumes-api
+
+![Álbumes logo](doc/logo.png)
+
 API for managing natural disasters albums
+
+- UI: [Frontend repository](https://github.com/julianalmandos/albumes-ui)
+
 
 ## Features
 - Create and view your personal albums of interviews on natural disasters to raise awareness
+- Generate and print your own accessibility albums
 - View interviews of natural disasters
 
 ## Getting Started
